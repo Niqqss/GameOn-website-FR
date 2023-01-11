@@ -29,7 +29,7 @@ function handleForm(e) {
   const failedInputs = keys.filter(key => !inputsValidity[key]);
   console.log(failedInputs);
 
-  // if there is still at least 1 error (length > 0), displays error message for the missing keys
+  // if there is still at least 1 error (length > 0), displays error message for each false key
   if (failedInputs.length) {
     failedInputs.forEach(input => {
       const index = keys.indexOf(input);
@@ -118,6 +118,7 @@ function mailValidation() {
 
 // birthdate verif
 const dateInput = document.getElementById("birthdate");
+// this regex means the year has to be between 1920-2004 (18 years old)
 const regexBirthdate = /(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/;
 
 dateInput.addEventListener("blur", dateValidation);
@@ -136,7 +137,8 @@ function dateValidation() {
 
 // quantity verif
 const quantityInput = document.getElementById("quantity");
-const regexQuantity = /^0*(\d{1,9})$/;
+// this regex means the input has to be between 0-99
+const regexQuantity = /^(\d?[1-9]|[1-9]0)$/;
 
 quantityInput.addEventListener("blur", quantityValidation);
 quantityInput.addEventListener("input", quantityValidation);
