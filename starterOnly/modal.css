@@ -201,6 +201,9 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 label {
@@ -364,6 +367,16 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.valid-text {
+  display: flex;
+  align-items: center;
+  height: 700px;
 }
 
 /* custom select styles */

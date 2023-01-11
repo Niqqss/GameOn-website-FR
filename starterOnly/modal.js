@@ -4,6 +4,10 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCloseBtn = document.querySelector(".close");
 
+const modalValid = document.getElementById("validation-message");
+const modalForm = document.getElementById("modal-form");
+const modalValidClose = document.getElementById("close-valid-form");
+
 // form validation
 const inputsValidity = {
   first: false,
@@ -25,12 +29,17 @@ function handleForm(e) {
   const failedInputs = keys.filter(key => !inputsValidity[key]);
   console.log(failedInputs);
 
-  // displays error message if there is still errors
-  if(failedInputs.length){
+  // if there is still at least 1 error (length > 0), displays error message for the missing keys
+  if (failedInputs.length) {
     failedInputs.forEach(input => {
       const index = keys.indexOf(input);
-      showValidation({index: index, validation: false});
+      showValidation({ index: index, validation: false });
     })
+  }
+  // if the form is valid, hide the form and displays the success message
+  else {
+    modalValid.classList.remove("hidden");
+    modalForm.classList.add("hidden");
   }
 }
 
@@ -54,7 +63,7 @@ function editNav() {
   }
 }
 
-// PRENOM VERIF
+// firstname verif
 const firstInput = document.getElementById("first");
 
 firstInput.addEventListener("blur", firstValidation);
@@ -71,7 +80,7 @@ function firstValidation() {
   }
 }
 
-// NOM VERIF
+// lastname verif
 const lastInput = document.getElementById("last");
 
 lastInput.addEventListener("blur", lastValidation);
@@ -88,8 +97,9 @@ function lastValidation() {
   }
 }
 
-// MAIL VERIF
+// mail verif
 const mailInput = document.getElementById("email");
+// regex as a constraint so the user has to use the right format
 const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 mailInput.addEventListener("blur", mailValidation);
@@ -106,7 +116,7 @@ function mailValidation() {
   }
 }
 
-// DATE VERIF
+// birthdate verif
 const dateInput = document.getElementById("birthdate");
 const regexBirthdate = /(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/;
 
@@ -124,7 +134,7 @@ function dateValidation() {
   }
 }
 
-// QUANTITE VERIF
+// quantity verif
 const quantityInput = document.getElementById("quantity");
 const regexQuantity = /^0*(\d{1,9})$/;
 
@@ -142,14 +152,14 @@ function quantityValidation() {
   }
 }
 
-// LOCATION VERIF
+// location verif
 const locationInput = document.getElementsByName("location");
 
 for (const location of locationInput) {
   location.addEventListener('input', checkLocation);
 }
 
-function checkLocation(){
+function checkLocation() {
   if (!location.checked) {
     showValidation({ index: 5, validation: true });
     inputsValidity.location = true;
@@ -160,12 +170,12 @@ function checkLocation(){
   }
 }
 
-// CGU VERIF
+// terms of use verif
 const termsOfUseInput = document.getElementById("checkbox1");
 
 termsOfUseInput.addEventListener("input", checkTermsOfUse);
 
-function checkTermsOfUse(){
+function checkTermsOfUse() {
   let validation = true;
   if (termsOfUseInput.checked) {
     showValidation({ index: 6, validation: true });
@@ -182,6 +192,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
 modalCloseBtn.addEventListener("click", closeModal);
+modalValidClose.addEventListener("click", closeModal);
 
 // launch modal form
 function launchModal() {
