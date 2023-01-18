@@ -24,10 +24,11 @@ const form = document.querySelector("form");
 form.addEventListener("submit", handleForm);
 
 function handleForm(e) {
+  // prevent the form from using the default behavior (like displaying the browser's native error message)
   e.preventDefault();
   const keys = Object.keys(inputsValidity);
   const failedInputs = keys.filter(key => !inputsValidity[key]);
-  console.log(failedInputs);
+  // console.log(failedInputs);
 
   // if there is still at least 1 error (length > 0), displays error message for each false key
   if (failedInputs.length) {
@@ -138,7 +139,7 @@ function dateValidation() {
 // quantity verif
 const quantityInput = document.getElementById("quantity");
 // this regex means the input has to be between 0-99
-const regexQuantity = /^(\d?[1-9]|[1-9]0)$/;
+const regexQuantity = /^(\d?[0-9]|[1-9]0)$/;
 
 quantityInput.addEventListener("blur", quantityValidation);
 quantityInput.addEventListener("input", quantityValidation);
@@ -205,5 +206,3 @@ function launchModal() {
 function closeModal() {
   modalbg.style.display = "none";
 }
-
-

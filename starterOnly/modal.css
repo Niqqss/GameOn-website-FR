@@ -33,11 +33,19 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  padding : 2.5rem 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-logo {
   float: left;
+}
+
+.header-logo img {
+  width: 100%;
+  padding: 0;
 }
 
 .main-navbar {
@@ -68,11 +76,50 @@ img {
   border-radius: 15px;
 }
 
+.topnav a span {
+  position: relative;
+}
+
+.topnav a.active span::after {
+  content: "";
+  position: absolute;
+  width: 110%;
+  height: 1.5px;
+  bottom: -2px;
+  left: -2px;
+  background-color: white;
+  transform-origin: right;
+  transition: transform .3s ease-out;
+}
+
+.topnav a.hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+  transform-origin: right;
+  transition: transform .3s ease-out;
+}
+
 .topnav .icon {
   display: none;
+  color: red;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 768px) {
+  .header-logo img {
+    height: 2.5rem;
+  }
+
+  .topnav {
+    padding : 2.5rem 20px 0 20px;
+  }
+  
+
   .topnav a {
     display: none;
   }
@@ -111,7 +158,6 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
   }
 }
 
@@ -119,14 +165,8 @@ main {
   font-size: 130%;
   font-weight: bolder;
   color: black;
-  padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -490,8 +530,9 @@ input[data-error]::after {
 
 .hero-headline {
   font-size: 6rem;
-  font-weight: normal;
+  font-weight: 600;
   white-space: nowrap;
+  justify-content: center;
 }
 
 .hero-text {
@@ -569,6 +610,10 @@ footer {
     font-size: 1.5rem;
   }
 
+  .hero-img {
+    padding : 20px;
+  }
+
   .hero-img img {
     border-radius: 10px;
     margin-top: 40px;
@@ -584,6 +629,25 @@ footer {
     margin-top: 50px;
     text-align: center;
   }
+
+  .content {
+    max-width: unset;
+    height: 100%;
+  }
+
+  /* .content {
+    margin: 5% auto;
+    width: 100%;
+    max-width: 500px;
+    animation-name: modalopen;
+    animation-duration: var(--modal-duration);
+    background: #232323;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    padding-top: 10px;
+  } */
 }
 
 @keyframes modalopen {
