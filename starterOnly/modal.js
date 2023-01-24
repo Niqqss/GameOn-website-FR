@@ -20,6 +20,7 @@ const inputsValidity = {
 }
 
 const form = document.querySelector("form");
+const textInputs = document.querySelectorAll(".text-control");
 
 form.addEventListener("submit", handleForm);
 
@@ -28,6 +29,7 @@ function handleForm(e) {
   e.preventDefault();
   const keys = Object.keys(inputsValidity);
   const failedInputs = keys.filter(key => !inputsValidity[key]);
+
   // console.log(failedInputs);
 
   // if there is still at least 1 error (length > 0), displays error message for each false key
@@ -41,6 +43,13 @@ function handleForm(e) {
   else {
     modalValid.classList.remove("hidden");
     modalForm.classList.add("hidden");
+    // retrieving user data in console
+    const locationVal = document.querySelector('input[name=location]:checked').value;
+    for (const textVal of textInputs) {
+      console.log(textVal.value);
+    };
+    console.log(locationVal);
+    console.log(infoCheckbox.value);
   }
 }
 
@@ -120,7 +129,7 @@ function mailValidation() {
 // birthdate verif
 const dateInput = document.getElementById("birthdate");
 // this regex means the year has to be between 1920-2004 (18 years old)
-const regexBirthdate = /(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)/;
+const regexBirthdate = /^(19|20)\d\d[- \.](0[1-9]|1[012])[- \.](0[1-9]|[12][0-9]|3[01])$/;
 
 dateInput.addEventListener("blur", dateValidation);
 dateInput.addEventListener("input", dateValidation);
@@ -174,19 +183,32 @@ function checkLocation() {
 }
 
 // terms of use verif
-const termsOfUseInput = document.getElementById("checkbox1");
+const termsOfUseCheckbox = document.getElementById("checkbox1");
 
-termsOfUseInput.addEventListener("input", checkTermsOfUse);
+termsOfUseCheckbox.addEventListener("input", isTOUChecked);
 
-function checkTermsOfUse() {
-  let validation = true;
-  if (termsOfUseInput.checked) {
+function isTOUChecked() {
+  if (termsOfUseCheckbox.checked) {
     showValidation({ index: 6, validation: true });
     inputsValidity.termsOfUse = true;
   }
   else {
     showValidation({ index: 6, validation: false });
     inputsValidity.termsOfUse = false;
+  }
+}
+
+// allows us to know if newsletter checkbox is checked or not when retrieving data
+const infoCheckbox = document.getElementById('checkbox2');
+
+infoCheckbox.addEventListener("input", isInfoChecked);
+
+function isInfoChecked() {
+  if (infoCheckbox.checked){
+    infoCheckbox.value = true;
+  }
+  else {
+    infoCheckbox.value = false;
   }
 }
 
