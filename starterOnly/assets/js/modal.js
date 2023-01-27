@@ -3,7 +3,6 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCloseBtn = document.querySelector(".close");
-
 const modalValid = document.getElementById("validation-message");
 const modalForm = document.getElementById("modal-form");
 const modalValidClose = document.getElementById("close-valid-form");
@@ -20,7 +19,8 @@ const inputsValidity = {
 }
 
 const form = document.querySelector("form");
-const textInputs = document.querySelectorAll(".text-control");
+// spread syntax to store the elements in an array so the returned values are iterable
+const textInputs = [...document.querySelectorAll(".text-control")];
 
 form.addEventListener("submit", handleForm);
 
@@ -30,8 +30,6 @@ function handleForm(e) {
   const keys = Object.keys(inputsValidity);
   const failedInputs = keys.filter(key => !inputsValidity[key]);
 
-  // console.log(failedInputs);
-
   // if there is still at least 1 error (length > 0), displays error message for each false key
   if (failedInputs.length) {
     failedInputs.forEach(input => {
@@ -39,17 +37,13 @@ function handleForm(e) {
       showValidation({ index: index, validation: false });
     })
   }
-  // if the form is valid, hide the form and displays the success message
+  // if the form is valid, hide the form and displays the success message + console.log the user inputs
   else {
     modalValid.classList.remove("hidden");
     modalForm.classList.add("hidden");
     // retrieving user data in console
     const locationVal = document.querySelector('input[name=location]:checked').value;
-    for (const textVal of textInputs) {
-      console.log(textVal.value);
-    };
-    console.log(locationVal);
-    console.log(infoCheckbox.value);
+    console.log([...textInputs.map(val => val.value), locationVal, infoCheckbox.value]);
   }
 }
 
@@ -128,7 +122,6 @@ function mailValidation() {
 
 // birthdate verif
 const dateInput = document.getElementById("birthdate");
-// this regex means the year has to be between 1920-2004 (18 years old)
 const regexBirthdate = /^(19|20)\d\d[- \.](0[1-9]|1[012])[- \.](0[1-9]|[12][0-9]|3[01])$/;
 
 dateInput.addEventListener("blur", dateValidation);
@@ -147,7 +140,6 @@ function dateValidation() {
 
 // quantity verif
 const quantityInput = document.getElementById("quantity");
-// this regex means the input has to be between 0-99
 const regexQuantity = /^(\d?[0-9]|[1-9]0)$/;
 
 quantityInput.addEventListener("blur", quantityValidation);
