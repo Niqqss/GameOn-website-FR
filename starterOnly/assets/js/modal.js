@@ -69,12 +69,13 @@ function editNav() {
 
 // firstname verif
 const firstInput = document.getElementById("first");
+const regexName = /^[ a-zA-ZàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ'`'\-]+$/;
 
 firstInput.addEventListener("blur", firstValidation);
 firstInput.addEventListener("input", firstValidation);
 
 function firstValidation() {
-  if (firstInput.value.length >= 2) {
+  if (firstInput.value.length >= 2 && regexName.test(firstInput.value)) {
     showValidation({ index: 0, validation: true });
     inputsValidity.first = true;
   }
@@ -91,7 +92,7 @@ lastInput.addEventListener("blur", lastValidation);
 lastInput.addEventListener("input", lastValidation);
 
 function lastValidation() {
-  if (lastInput.value.length >= 2) {
+  if (lastInput.value.length >= 2 && regexName.test(lastInput.value)) {
     showValidation({ index: 1, validation: true });
     inputsValidity.last = true;
   }
@@ -104,7 +105,7 @@ function lastValidation() {
 // mail verif
 const mailInput = document.getElementById("email");
 // regex as a constraint so the user has to use the right format
-const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)+(\.\w{2,3})+$/;
 
 mailInput.addEventListener("blur", mailValidation);
 mailInput.addEventListener("input", mailValidation);
@@ -122,7 +123,7 @@ function mailValidation() {
 
 // birthdate verif
 const dateInput = document.getElementById("birthdate");
-const regexBirthdate = /^(19|20)\d\d[- \.](0[1-9]|1[012])[- \.](0[1-9]|[12][0-9]|3[01])$/;
+const regexBirthdate = /^(200[0-4]|19[2-9]\d)\-(1[0-2]|0[1-9])\-(3[0-1]|[0-2]\d)$/;
 
 dateInput.addEventListener("blur", dateValidation);
 dateInput.addEventListener("input", dateValidation);
